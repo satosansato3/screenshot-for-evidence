@@ -84,36 +84,34 @@ function CSVToArray(strData, strDelimiter) {
     return (arrData);
 }
 
-let fileregist = document.getElementById('fileregist');
 let fileinput = document.getElementById('file');
-
-fileregist.onclick = function () {
+$("#fileregist").on("click", () => {
     const reader = new FileReader;
     if (fileinput.files[0]) {
         const file = fileinput.files[0];
         reader.readAsText(file);
-    }
+    };
 
     reader.onload = (e) => {
         const content = CSVToArray(e.target.result);
         let registerdContent = [];
-        chrome.storage.sync.get('data', function (data) {
+        chrome.storage.sync.get('data', data => {
             for (let v of data.data) {
                 registerdContent.push(v);
             }
         });
         registerdContent.push(content);
-        chrome.storage.sync.set({ 'data': registerdContent }, function () { });
-     }
-};
+        chrome.storage.sync.set({ 'data': registerdContent }, () => { });
+    };
+    console.log("hoge11111111");
+});
 
-window.onload = function () {
+$(function () {
     let contents = "";
     chrome.storage.sync.get('data', (data) => {
         contents = data.data;
         if (contents) {
             for (let content of contents) {
-                console.log("hoge");
                 for (let i = 0; i < content.length; i++) {
                     let row = document.createElement('tr');
                     for (let j = 0; j < content[i].length; j++) {
@@ -122,27 +120,23 @@ window.onload = function () {
                         row.appendChild(data);
                     }
                     let screenshotCell = document.createElement('td');
-                    let screenshot = document.createElement('button');
-                    screenshot.style.width = "30px";
-                    screenshot.style.height = "30px";
-                    screenshot.onclick = function () {
+                    $("<button>").css({
+                        "width": "30px",
+                        "height": "30px"
+                    }).on("click", () => {
                         chrome.tabs.captureVisibleTab(function (data) {
                             let link = document.createElement('a');
                             link.download = content[i][0] + ".jpeg";
                             link.href = data;
                             link.click();
                         })
-                    };
-                    screenshotCell.appendChild(screenshot);
+                    }).appendTo(screenshotCell)
                     row.appendChild(screenshotCell);
                     testList.appendChild(row);
                 }
             }
-
         }
     });
-}
-
-$(function(){
-    console.log("hoge");
 })
+
+
