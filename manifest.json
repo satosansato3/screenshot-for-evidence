@@ -3,8 +3,12 @@
   "version": "1.0",
   "description": "screenshot",
   "permissions": ["activeTab", "storage"],
-  "browser_action": {
-    "default_popup": "popup.html"
-  },
-  "manifest_version":  2
+  "content_scripts": [
+    {
+      "matches": [ "http://localhost/*" ],
+      "js": [ "jquery-3.4.1.min.js", "sidebar.js" ]
+    }
+  ],
+  "web_accessible_resources": ["content.html"],
+  "manifest_version": 2
 }

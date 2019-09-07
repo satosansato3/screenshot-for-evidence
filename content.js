@@ -103,7 +103,6 @@ $("#fileregist").on("click", () => {
         registerdContent.push(content);
         chrome.storage.sync.set({ 'data': registerdContent }, () => { });
     };
-    console.log("hoge11111111");
 });
 
 $(function () {
