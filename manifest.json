@@ -2,7 +2,7 @@
   "name": "Screenshot for Evidence",
   "version": "1.0",
   "description": "screenshot",
-  "permissions": ["activeTab", "storage"],
+  "permissions": [ "activeTab", "storage", "<all_urls>" ],
   "content_scripts": [
     {
       "matches": [ "http://localhost/*" ],

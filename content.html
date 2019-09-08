@@ -4,25 +4,48 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <style type="text/css">
-        html, body {
-            height: 30px;
-            width: 100%;
-            z-index: 2147483647;
-        }
-    </style>
+    <link href="bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/content.css" rel="stylesheet" />
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <table id="testList">
-        <tr>
-            <th>項番</th>
-            <th>テスト項目</th>
-            <th>期待する結果</th>
-        </tr>
-    </table>
-    <input type="file" id="file" />
-    <button id="fileregist">ファイル登録</button>
-    <script src="jquery-3.4.1.min.js"></script>
-    <script src="content.js"></script>
+    <div id="sidebarWrapper">
+        <div id="sidebarHandle" class="">
+        </div>
+        <div id="sidebar" class="">
+            <div id="addTest">
+                <label for="file" class="btn btn-info">
+                    テストを選択
+                    <input type="file" id="file" />
+                </label>
+                <button id="fileregist"  class="btn btn-info">
+                    テスト項目登録
+                </button>
+            </div>
+
+            <div class="test-object">
+                <div class="test-wrapper">
+                    <div class="test-id">
+                        <strong>テストID</strong>
+                        <span>ITS-1</span>
+                    </div>
+                    <div class="test-content">
+                        <span>index=_internal</span>
+                    </div>
+                    <div class="test-expected-result">
+                        <span>結果が表示される</span>
+                    </div>
+                </div>
+                <button class="screenshot">
+                    <img src="images/camera.png" />
+                </button>
+            </div>
+
+
+
+            <script src="content.js"></script>
+        </div>
+    </div>
 </body>
 </html>

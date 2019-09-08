@@ -45,8 +45,8 @@
     //);
     html.append(
         '<iframe id="' + iframeId + '" scrolling="no" frameborder="0" allowtransparency="false" ' +
-        'style="position: fixed; width: 300px;border:none;z-index: 2147483647; bottom: 0px;' +
-        'height: 70%; right: 0px; background: gray; opacity: 0.6;" ' +
+        'style="position: fixed;border:none;z-index: 10; background-color:rgba(255,255,255,0.7);bottom: 0px;' +
+        'height: 70%;width: 400px; right: 0px;" ' +
         'src="' + chrome.extension.getURL("content.html") + '">' +
         '</iframe>'
     );
