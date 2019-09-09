@@ -37,26 +37,36 @@
         alert('id:' + iframeId + 'taken please dont use this id!');
         throw 'id:' + iframeId + 'taken please dont use this id!';
     }
-    //html.append(
-    //    '<iframe id="' + iframeId + '" scrolling="no" frameborder="0" allowtransparency="false" ' +
-        //'style="position: fixed; width: 300px;border:none;z-index: 2147483647; top: 0px;' +
-        //'height: 100%; right: 0px; background: gray; opacity: 0.6;">' +
-    //    '</iframe>'
-    //);
-    html.append(
-        '<iframe id="' + iframeId + '" scrolling="no" frameborder="0" allowtransparency="false" ' +
-        'style="position: fixed;border:none;z-index: 10; background-color:rgba(255,255,255,0.7);bottom: 0px;' +
-        'height: 70%;width: 400px; right: 0px;" ' +
-        'src="' + chrome.extension.getURL("content.html") + '">' +
-        '</iframe>'
-    );
-  //  document.getElementById(iframeId).contentDocument.body.innerHTML =
-  //      '<style type="text/css">\
-  //  html, body {          \
-  //    height: '+ height + '; \
-  //    width: 100%;        \
-  //    z-index: 2147483647;\
-  //  }                     \
-  //</style>                \
-  //<p>UNSTYLED HTML!</p>';
+
+    sidebar_style = ({
+        "position": "fixed",
+        "border": "none",
+        "z-index": "10",
+        "background-color": "rgba(255, 255, 255, 0.7)",
+        "bottom": "-660px",
+        "height": "700px",
+        "width": "400px",
+        "right": "0px",
+        "transition": "all 150ms 0ms ease",
+        "display": "inline"
+    })
+
+    window.addEventListener("message", (event) => {
+        sidebar = $("#" + iframeId);
+        if (event.data.status == "active") {
+            sidebar.css("transform", "translateY(-660px)");
+        } else {
+            sidebar.css("transform", "");
+        }
+    });
+
+    $("iframe").attr({
+        id: iframeId,
+        scrolling: "no",
+        frameborder: "0",
+        allowtransparency: "false",
+        src: chrome.extension.getURL("content.html"),
+    }).css(sidebar_style).appendTo(html)
+
+
 })
