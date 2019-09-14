@@ -26,33 +26,32 @@
                     テストを選択
                     <input type="file" id="file" />
                 </label>
-                <button id="fileregist"  class="btn btn-info">
+                <button id="fileregist" class="btn btn-info">
                     テスト項目登録
                 </button>
             </div>
-
-            <div class="test-object">
-                <div class="test-wrapper">
-                    <div class="test-id">
-                        <strong>テストID</strong>
-                        <span>ITS-1</span>
-                    </div>
-                    <div class="test-content">
-                        <span>index=_internal</span>
-                    </div>
-                    <div class="test-expected-result">
-                        <span>結果が表示される</span>
-                    </div>
-                </div>
-                <button class="screenshot">
-                    <img src="images/camera.png" />
-                </button>
-            </div>
-
-
-
-            <script src="content.js"></script>
         </div>
     </div>
+
+    <template id="testTemplate">
+        <div class="test-object clearfix">
+            <div class="test-wrapper">
+                <div class="test-id-wrapper">
+                    <strong>テストID</strong>
+                    <span class="test-id">ITS-1</span>
+                </div>
+                <div class="test-content-wrapper">
+                    <span class="test-content">index=_internal</span>
+                </div>
+                <div class="test-expected-result-wrapper">
+                    <span class="test-expected-result">結果が表示される</span>
+                </div>
+            </div>
+            <button class="screenshot">
+                <img src="images/camera.png" />
+            </button>
+        </div>
+    </template>
+    <script src="content.js"></script>
 </body>
 </html>

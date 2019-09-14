@@ -95,47 +95,95 @@ $("#fileregist").on("click", () => {
     reader.onload = (e) => {
         const content = CSVToArray(e.target.result);
         let registerdContent = [];
-        chrome.storage.sync.get('data', data => {
-            for (let v of data.data) {
-                registerdContent.push(v);
-            }
-        });
+        //chrome.storage.sync.get('data', data => {
+        //    for (let v of data.data) {
+        //        registerdContent.push(v);
+        //    }
+        //});
         registerdContent.push(content);
         chrome.storage.sync.set({ 'data': registerdContent }, () => { });
     };
 });
 
-$(function () {
+//$(function () {
+//    let contents = "";
+//    chrome.storage.sync.get('data', (data) => {
+//        contents = data.data;
+//        if (contents) {
+//            for (let content of contents) {
+//                for (let i = 0; i < content.length; i++) {
+//                    let row = document.createElement('tr');
+//                    for (let j = 0; j < content[i].length; j++) {
+//                        let data = document.createElement('td');
+//                        data.innerHTML = content[i][j];
+//                        row.appendChild(data);
+//                    }
+//                    let screenshotCell = document.createElement('td');
+//                    $("<button>").css({
+//                        "width": "30px",
+//                        "height": "30px"
+//                    }).on("click", () => {
+//                        chrome.tabs.captureVisibleTab(function (data) {
+//                            let link = document.createElement('a');
+//                            link.download = content[i][0] + ".jpeg";
+//                            link.href = data;
+//                            link.click();
+//                        })
+//                    }).appendTo(screenshotCell)
+//                    row.appendChild(screenshotCell);
+//                    testList.appendChild(row);
+//                }
+//            }
+//        }
+//    });
+//})
+
+document.addEventListener('DOMContentLoaded', function () {
     let contents = "";
     chrome.storage.sync.get('data', (data) => {
-        contents = data.data;
+        contents = data.data[0];
         if (contents) {
+            let test_object = document.getElementById("testTemplate").content;
+            let test_id = test_object.querySelector(".test-id");
+            let test_content = test_object.querySelector(".test-content");
+            let test_expected_result = test_object.querySelector(".test-expected-result");
+            let screenshot = test_object.querySelector(".screenshot");
+            let fragment = document.createDocumentFragment();
             for (let content of contents) {
-                for (let i = 0; i < content.length; i++) {
-                    let row = document.createElement('tr');
-                    for (let j = 0; j < content[i].length; j++) {
-                        let data = document.createElement('td');
-                        data.innerHTML = content[i][j];
-                        row.appendChild(data);
-                    }
-                    let screenshotCell = document.createElement('td');
-                    $("<button>").css({
-                        "width": "30px",
-                        "height": "30px"
-                    }).on("click", () => {
-                        chrome.tabs.captureVisibleTab(function (data) {
-                            let link = document.createElement('a');
-                            link.download = content[i][0] + ".jpeg";
-                            link.href = data;
-                            link.click();
-                        })
-                    }).appendTo(screenshotCell)
-                    row.appendChild(screenshotCell);
-                    testList.appendChild(row);
-                }
+                let clone;
+                //for (let i = 0; i < content.length; i++) {
+                //    test_id.innerHTML = content[i][0];
+                //    test_content.innerHTML = content[i][1];
+                //    test_expected_result.innerHTML = content[i][2];
+                //}
+                test_id.innerHTML = content[0];
+                test_content.innerHTML = content[1];
+                test_expected_result.innerHTML = content[2];
+                screenshot.setAttribute("data-screenshot", content[0])
+                //screenshot.addEventListener("click", () => {
+                //    chrome.tabs.captureVisibleTab(function (data) {
+                //        let link = document.createElement('a');
+                //        link.download = content[i][0] + ".jpeg";
+                //        link.href = data;
+                //        link.click();
+                //    })
+                //});
+                clone = document.importNode(test_object, true);
+                fragment.appendChild(clone);
             }
+            document.getElementById("sidebar").appendChild(fragment);
         }
     });
+})
+
+$("#sidebar").on("click", ".screenshot", function () {
+    let filename = $(this).data("screenshot");
+    chrome.tabs.captureVisibleTab(function (data) {
+        let link = document.createElement('a');
+        link.download = filename + ".jpeg";
+        link.href = data;
+        link.click();
+    })
 })
 
 let sidebar_handle = $("#sidebarHandle");
