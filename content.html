@@ -22,13 +22,34 @@
         </div>
         <div id="sidebar" class="">
             <div id="addTest">
-                <label for="file" class="btn btn-info">
-                    テストを選択
-                    <input type="file" id="file" />
-                </label>
-                <button id="fileregist" class="btn btn-info">
-                    テスト項目登録
+                <div id="currentFile">
+                    <strong id="filename_label">テストケースファイル</strong>
+                    <p id="filename"></p>
+                </div>
+                <button class="btn btn-info" data-toggle="modal" data-target="#modal1">
+                    変更
                 </button>
+            </div>
+            <div id="testList"></div>
+            <div class="modal fade" id="modal1" tabindex="-1"
+                 role="dialog" aria-labelledby="label1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="label1">テストケースファイルの登録</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" id="file" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="fileregist" class="btn btn-primary">登録</button>
+                            <button type="button" class="btn btn-secondary modal-btn" data-dismiss="modal">キャンセル</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
