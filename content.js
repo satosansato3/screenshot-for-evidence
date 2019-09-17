@@ -135,34 +135,14 @@ $("#fileregist").on("click", () => {
         const content = CSVToArray(e.target.result);
         let registerdContent = [];
         registerdContent.push(content);
-        chrome.storage.sync.set({ 'data': registerdContent, "filename": e.target.fileName }, refreshTestCase());
+        chrome.storage.sync.set({ 'data': registerdContent, "filename": e.target.fileName }, () => {
+            chrome.storage.onChanged.addListener(refreshTestCase());
+        });
     };
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
-    //let contents = "";
-    //chrome.storage.sync.get(['data', "filename"], (data) => {
-    //    $("#filename").html(data.filename);
-    //    contents = data.data[0];
-    //    if (contents) {
-    //        let test_object = document.getElementById("testTemplate").content;
-    //        let test_id = test_object.querySelector(".test-id");
-    //        let test_content = test_object.querySelector(".test-content");
-    //        let test_expected_result = test_object.querySelector(".test-expected-result");
-    //        let screenshot = test_object.querySelector(".screenshot");
-    //        let fragment = document.createDocumentFragment();
-    //        for (let content of contents) {
-    //            let clone;
-    //            test_id.innerHTML = content[0];
-    //            test_content.innerHTML = content[1];
-    //            test_expected_result.innerHTML = content[2];
-    //            screenshot.setAttribute("data-screenshot", content[0])
-    //            clone = document.importNode(test_object, true);
-    //            fragment.appendChild(clone);
-    //        }
-    //        document.getElementById("sidebar").appendChild(fragment);
-    //    }
-    //});
     refreshTestCase();
 })
 
