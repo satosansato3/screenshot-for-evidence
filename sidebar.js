@@ -54,7 +54,7 @@
     window.addEventListener("message", (event) => {
         sidebar = $("#" + iframeId);
         if (event.data.status == "active") {
-            sidebar.css("transform", "translateY(-660px)");
+            sidebar.css("transform", "translateY(-647px)");
         } else {
             sidebar.css("transform", "");
         }
