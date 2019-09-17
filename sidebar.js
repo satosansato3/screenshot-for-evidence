@@ -60,13 +60,19 @@
         }
     });
 
-    $("iframe").attr({
-        id: iframeId,
-        scrolling: "no",
-        frameborder: "0",
-        allowtransparency: "false",
-        src: chrome.extension.getURL("content.html"),
-    }).css(sidebar_style).appendTo(html)
+    //$("iframe").attr({
+    //    id: iframeId,
+    //    scrolling: "no",
+    //    frameborder: "0",
+    //    allowtransparency: "false",
+    //    src: chrome.extension.getURL("content.html"),
+    //}).css(sidebar_style).appendTo(html)
 
-
+    html.append(
+        '<iframe id="' + iframeId + '" scrolling="no" frameborder="0" allowtransparency="false" ' +
+        'style="position: fixed; width: 400px;border:none;z-index: 10; bottom: -660px;' +
+        'height: 700px; right: 0px; background-color: rgba(255, 255, 255, 0.7);display: inline;transition: all 150ms 0ms ease;"' +
+        'src="' + chrome.extension.getURL("content.html") + '">' +
+        '</iframe>'
+    );
 })

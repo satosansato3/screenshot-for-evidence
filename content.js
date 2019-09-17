@@ -90,8 +90,6 @@ function refreshTestCase() {
     chrome.storage.sync.get(['data', "filename"], (data) => {
         $("#filename").html(data.filename);
         contents = data.data[0];
-        console.log(contents);
-        console.log(data.filename);
         if (contents) {
             let test_object = document.getElementById("testTemplate").content;
             let test_id = test_object.querySelector(".test-id");
