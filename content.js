@@ -164,14 +164,31 @@ sidebar_handle.on("click", () => {
         sidebar_handle.removeClass("active");
         sidebar_up_cursor.css("display", "flex")
         sidebar_down_cursor.css("display", "none")
+        chrome.storage.sync.set({ "sidebar_handle": "none" }, () => {})
     } else {
         window.parent.postMessage({ status: "active" }, "*");
         sidebar_handle.addClass("active");
         sidebar_up_cursor.css("display", "none")
         sidebar_down_cursor.css("display", "flex")
+        chrome.storage.sync.set({ "sidebar_handle": "active" }, () => { })
     }
 })
-
-
+let sidebar_handle_status;
+chrome.storage.sync.get("sidebar_handle", (data) => {
+    sidebar_handle_status = data.sidebar_handle
+    if (sidebar_handle_status != "active") {
+        window.parent.postMessage({ status: "none" }, "*");
+        sidebar_handle.removeClass("active");
+        sidebar_up_cursor.css("display", "flex")
+        sidebar_down_cursor.css("display", "none")
+        chrome.storage.sync.set({ "sidebar_handle": "none" }, () => { })
+    } else {
+        window.parent.postMessage({ status: "active" }, "*");
+        sidebar_handle.addClass("active");
+        sidebar_up_cursor.css("display", "none")
+        sidebar_down_cursor.css("display", "flex")
+        chrome.storage.sync.set({ "sidebar_handle": "active" }, () => { })
+    }
+})
 
 $(".modal-btn").on("click", closeModal());
